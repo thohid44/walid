@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:triptask/Email_Verify/view/email_verification.dart';
-
-import 'pages/Home/view/home_screen.dart';
 import 'pages/Login/view/login_screen.dart';
-import 'pages/TripPages/views/trip_page.dart';
-import 'rating/view/rating_page_30.dart';
-import 'rating/view/star_rating_32.dart';
 
 void main() {
   runApp(const MyApp());
@@ -39,6 +33,7 @@ class MyApp extends StatelessWidget {
         );
       },
       child: LoginScreen(),
+      
     );
   }
 }

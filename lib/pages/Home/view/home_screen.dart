@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:triptask/Email_Verify/view/email_verification.dart';
 import 'package:triptask/Utils/colors.dart';
@@ -212,7 +213,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 30.h,
                 ),
                 Container(
-                    height: 70.h,
+                    height: 50.h,
                     margin: EdgeInsets.symmetric(horizontal: 20.w),
                     padding: EdgeInsets.only(
                       left: 30.w,
@@ -242,19 +243,26 @@ class _HomeScreenState extends State<HomeScreen> {
                         alignment: Alignment.center,
                         child: Column(
                           children: [
-                            CircleAvatar(
-                                backgroundColor: navyBlueColor,
-                                radius: 30.r,
-                                child: Image.asset("assets/person.png")),
+                                 Container(
+                      alignment: Alignment.center,
+                      height: 60,
+                      width: 60,
+                      decoration: BoxDecoration(
+                          color: navyBlueColor, shape: BoxShape.circle),
+                      child: FaIcon(
+                        FontAwesomeIcons.camera,
+                        color: Colors.white,
+                      ),
+                    ), 
                             SizedBox(
-                              height: 15.h,
+                              height: 10.h,
                             ),
                             Container(
                                 child: Text(
                               "New Account Bonus",
                               style: TextStyle(
                                 fontSize: 13.sp,
-                                color: Colors.black26,
+                                color: Colors.black,
                                 fontWeight: FontWeight.w500,
                               ),
                               textAlign: TextAlign.center,
@@ -267,19 +275,26 @@ class _HomeScreenState extends State<HomeScreen> {
                         alignment: Alignment.center,
                         child: Column(
                           children: [
-                            CircleAvatar(
-                                backgroundColor: navyBlueColor,
-                                radius: 30.r,
-                                child: Image.asset("assets/person.png")),
+                                  Container(
+                      alignment: Alignment.center,
+                      height: 60,
+                      width: 60,
+                      decoration:const BoxDecoration(
+                          color: navyBlueColor, shape: BoxShape.circle),
+                      child:const FaIcon(
+                        FontAwesomeIcons.camera,
+                        color: Colors.white,
+                      ),
+                    ), 
                             SizedBox(
-                              height: 15.h,
+                              height: 20.h,
                             ),
                             Container(
                                 child: Text(
                               "Rafferal Bonus",
                               style: TextStyle(
                                 fontSize: 13.sp,
-                                color: Colors.black26,
+                                color: Colors.black,
                                 fontWeight: FontWeight.w500,
                               ),
                               textAlign: TextAlign.center,
@@ -292,10 +307,17 @@ class _HomeScreenState extends State<HomeScreen> {
                         alignment: Alignment.center,
                         child: Column(
                           children: [
-                            CircleAvatar(
-                                backgroundColor: navyBlueColor,
-                                radius: 30.r,
-                                child: Image.asset("assets/person.png")),
+                          Container(
+                      alignment: Alignment.center,
+                      height: 60,
+                      width: 60,
+                      decoration: BoxDecoration(
+                          color: navyBlueColor, shape: BoxShape.circle),
+                      child: FaIcon(
+                        FontAwesomeIcons.camera,
+                        color: Colors.white,
+                      ),
+                    ), 
                             SizedBox(
                               height: 15.h,
                             ),
@@ -304,7 +326,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               "Frequent User Bonus",
                               style: TextStyle(
                                 fontSize: 13.sp,
-                                color: Colors.black26,
+                                color: Colors.black,
                                 fontWeight: FontWeight.w500,
                               ),
                               textAlign: TextAlign.center,
