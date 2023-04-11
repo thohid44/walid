@@ -213,7 +213,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 Container(
                     height: 70.h,
-                    margin: EdgeInsets.symmetric(horizontal: 20.w),
+                    margin: EdgeInsets.symmetric(horizontal: 20.w, 
+                   ),
                     padding: EdgeInsets.only(
                       left: 30.w,
                       top: 20.h,
@@ -226,10 +227,16 @@ class _HomeScreenState extends State<HomeScreen> {
                             bottomRight: Radius.circular(10.r))),
                     child: CustomText(
                       "New offers",
-                      Colors.black26,
+                      skyColor, 
                       FontWeight.bold,
-                      25.sp,
+                      20.sp,
                     )),
+                    Text("----------------------------------------------------", 
+                    style: TextStyle(
+                      fontSize: 15.sp, 
+                      fontWeight: FontWeight.bold
+                    ),
+                    ), 
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 20.w),
                   padding: EdgeInsets.only(left: 15.w, bottom: 15.h),
