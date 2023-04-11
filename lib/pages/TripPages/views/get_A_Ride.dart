@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:triptask/Utils/colors.dart';
 import 'package:triptask/Widget/customButtonOne.dart';
 import 'package:triptask/pages/TripPages/views/trip_page.dart';
@@ -21,6 +22,15 @@ class GetARide extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //  CameraPosition initialCameraPosition = CameraPosition(
+    //   zoom: 20,
+    //   tilt: 80,
+    //   bearing: 30,
+    //   // target: currentLocation != null
+    //   //     ? LatLng(currentLocation!.latitude ?? 0.0,
+    //   //         currentLocation!.longitude ?? 0.0)
+    //   //     : LatLng(0.0, 0.0),
+    // );
     return Column(
       children: [
         SizedBox(
@@ -83,6 +93,7 @@ class GetARide extends StatelessWidget {
           color: Colors.amber,
           height: 150, 
           width: 320.w,
+          
         ), 
         Container(
           margin: EdgeInsets.symmetric(horizontal: 20.w),
