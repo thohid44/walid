@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:triptask/Utils/colors.dart';
@@ -7,7 +6,35 @@ import 'package:triptask/pages/TripPages/views/trip_page.dart';
 
 class GiveARide extends StatelessWidget {
   final TextEditingController search = TextEditingController();
+  List<DropdownMenuItem<String>> get dropdownItem {
+    List<DropdownMenuItem<String>> startPoint = [
+      const DropdownMenuItem(child: Text("km"), value: "km"),
+      const DropdownMenuItem(child: Text("feet"), value: "feet"),
+    ];
+    return startPoint;
+  }
 
+  String startPoint = "km";
+
+  List<DropdownMenuItem<String>> get dropdownItem2 {
+    List<DropdownMenuItem<String>> destination = [
+      const DropdownMenuItem(child: Text("km"), value: "km"),
+      const DropdownMenuItem(child: Text("feet"), value: "feet"),
+    ];
+    return destination;
+  }
+
+  String destination = "km";
+
+  List<DropdownMenuItem<String>> get selectVehicle {
+    List<DropdownMenuItem<String>> destination = [
+      const DropdownMenuItem(child: Text("select"), value: "select"),
+      const DropdownMenuItem(child: Text("Bus"), value: "Bus"),
+    ];
+    return destination;
+  }
+  String vehicle = "select";
+  
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -39,16 +66,26 @@ class GiveARide extends StatelessWidget {
                     textController: search,
                   )),
               SizedBox(
-                width: 5.w,
+                width: 10.w,
               ),
               Container(
-                  width: 70.w,
-                  height: 35.h,
-                  child: CustomForm(
-                    hinttext: "km",
-                    radius: 5.r,
-                    textController: search,
-                  ))
+                alignment: Alignment.center,
+                height: 35.h,
+                width: 70.w,
+                decoration: BoxDecoration(
+                    border: Border.all(width: 1.w, color: Colors.grey),
+                    borderRadius: BorderRadius.circular(10.r)),
+                child: DropdownButton(
+                  underline: SizedBox(),
+                  style: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
+                  value: startPoint,
+                  onChanged: (value) {},
+                  items: dropdownItem,
+                ),
+              ),
             ],
           ),
         ),
@@ -81,17 +118,77 @@ class GiveARide extends StatelessWidget {
                     textController: search,
                   )),
               SizedBox(
-                width: 5.w,
+                width: 10.w,
               ),
               Container(
-                  width: 70.w,
-                  height: 35.h,
-                  alignment: Alignment.center,
-                  child: CustomForm(
-                    hinttext: "km",
-                    radius: 5.r,
-                    textController: search,
-                  ))
+                alignment: Alignment.center,
+                height: 35.h,
+                width: 70.w,
+                decoration: BoxDecoration(
+                    border: Border.all(width: 1.w, color: Colors.grey),
+                    borderRadius: BorderRadius.circular(10.r)),
+                child: DropdownButton(
+                  underline: SizedBox(),
+                  style: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
+                  value: startPoint,
+                  onChanged: (value) {},
+                  items: dropdownItem,
+                ),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(
+          height: 10.h,
+        ),
+        Container(
+          margin: EdgeInsets.only(left: 20.w, right: 20.w),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                padding: EdgeInsets.all(8.0),
+                alignment: Alignment.center,
+                height: 35.h,
+                width: 150.w,
+                decoration: BoxDecoration(
+                    border: Border.all(width: 1.w, color: Colors.grey),
+                    borderRadius: BorderRadius.circular(10.r)),
+                child: DropdownButton(
+                  isExpanded: true,
+                  underline: SizedBox(),
+                  style: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
+                  value: vehicle,
+                  onChanged: (value) {},
+                  items: selectVehicle,
+                ),
+              ),
+              Container(
+                alignment: Alignment.center,
+                padding: EdgeInsets.all(8.0),
+                height: 35.h,
+                width: 150.w,
+                decoration: BoxDecoration(
+                    border: Border.all(width: 1.w, color: Colors.grey),
+                    borderRadius: BorderRadius.circular(10.r)),
+                child: DropdownButton(
+                  isExpanded: true,
+                  underline: SizedBox(),
+                  style: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
+                  value: vehicle,
+                  onChanged: (value) {},
+                  items: selectVehicle,
+                ),
+              ),
             ],
           ),
         ),
@@ -99,7 +196,7 @@ class GiveARide extends StatelessWidget {
           height: 20.h,
         ),
         Container(
-          height: 40.h,
+          height: 35.h,
           width: 150.w,
           alignment: Alignment.center,
           padding: EdgeInsets.symmetric(horizontal: 10.w),
@@ -135,7 +232,7 @@ class GiveARide extends StatelessWidget {
         CustomButtonOne(
           title: "Clear Search",
           onTab: () {},
-          height: 40.h,
+          height: 35.h,
           width: 150.w,
           btnColor: navyBlueColor,
           radius: 10.r,
