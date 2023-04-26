@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:triptask/Email_Verify/view/email_verification.dart';
 import 'package:triptask/Utils/colors.dart';
 import 'package:triptask/Widget/customText.dart';
+import 'package:triptask/pages/Ship/views/shipPage.dart';
 import 'package:triptask/pages/TripPages/views/trip_page.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -78,7 +79,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   color: lightNavyColor,
                                   borderRadius: BorderRadius.circular(30.r)),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   CircleAvatar(
                                     backgroundColor: navyBlueColor,
@@ -125,6 +127,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             color: tealColor,
                             borderRadius: BorderRadius.circular(15.r)),
                         child: InkWell(
+                            onTap: () {
+                              Get.to(ShipHomePage());
+                            },
                             child: CustomText(
                                 "Ship", Colors.white, FontWeight.w600, 17.sp)),
                       ),
@@ -176,8 +181,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
-                                      child: CustomText("Check Shipping Content",
-                                          Colors.black, FontWeight.w700, 13.sp),
+                                      child: CustomText(
+                                          "Check Shipping Content",
+                                          Colors.black,
+                                          FontWeight.w700,
+                                          13.sp),
                                     ),
                                     SizedBox(
                                       height: 10.h,
@@ -200,8 +208,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                       height: 10.h,
                                     ),
                                     Container(
-                                      child: CustomText("Avoid risks & stay safe",
-                                          Colors.black, FontWeight.w300, 13.sp),
+                                      child: CustomText(
+                                          "Avoid risks & stay safe",
+                                          Colors.black,
+                                          FontWeight.w300,
+                                          13.sp),
                                     )
                                   ],
                                 )
@@ -210,14 +221,16 @@ class _HomeScreenState extends State<HomeScreen> {
                           );
                         }),
                   ),
-                  SizedBox(height: 10.h,),
+                  SizedBox(
+                    height: 10.h,
+                  ),
                   Container(
                     height: 200.h,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: 2,
-                      itemBuilder: (context,index){
-                        return  Card(
+                      itemBuilder: (context, index) {
+                        return Card(
                           elevation: 4,
                           child: Container(
                             width: 290.w,
@@ -226,18 +239,21 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: Column(
                               children: [
                                 Container(
-
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Container(
                                         width: 150.w,
-
                                         padding: EdgeInsets.only(
-                                            left: 7.w, right: 7.w, top: 7.h, bottom: 7.h),
+                                            left: 7.w,
+                                            right: 7.w,
+                                            top: 7.h,
+                                            bottom: 7.h),
                                         decoration: BoxDecoration(
                                             color: navyBlueColor,
-                                            borderRadius: BorderRadius.circular(10.r)),
+                                            borderRadius:
+                                                BorderRadius.circular(10.r)),
                                         child: Text(
                                           "Want to give a ride & make money?",
                                           style: TextStyle(
@@ -255,37 +271,42 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ],
                                   ),
                                 ),
-                                SizedBox(height: 10.h,),
+                                SizedBox(
+                                  height: 10.h,
+                                ),
                                 Stack(
                                   children: [
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Container(
-                                          width:190.w,
-                                          child: Text("Post your destination & choose passengers who are headed the same direction",
-                                            style: TextStyle(fontSize: 11.sp),),
+                                          width: 190.w,
+                                          child: Text(
+                                            "Post your destination & choose passengers who are headed the same direction",
+                                            style: TextStyle(fontSize: 11.sp),
+                                          ),
                                         ),
                                         Image.asset("assets/mobile.jpg")
                                       ],
                                     ),
                                     Positioned(
-
                                         bottom: 10.h,
                                         child: Container(
-                                          child: Text("Give a ride and make money.",
-                                            style: TextStyle(fontSize: 11.sp),),
+                                          child: Text(
+                                            "Give a ride and make money.",
+                                            style: TextStyle(fontSize: 11.sp),
+                                          ),
                                         )),
                                     Positioned(
                                         right: 15.w,
                                         bottom: 0.h,
                                         child: Container(
                                             height: 40.h,
-                                            child: Image.asset("assets/car.png")
-                                        )),
+                                            child:
+                                                Image.asset("assets/car.png"))),
                                   ],
                                 )
-
                               ],
                             ),
                           ),
@@ -320,8 +341,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     decoration: BoxDecoration(color: primaryColor),
                     child: Text(
                       "- - - - - - - - - - - - - - - - - - - - - - -",
-                      style:
-                          TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w700),
+                      style: TextStyle(
+                          fontSize: 20.sp, fontWeight: FontWeight.w700),
                     ),
                   ),
                   Container(
@@ -341,7 +362,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 height: 60,
                                 width: 60,
                                 decoration: BoxDecoration(
-                                    color: navyBlueColor, shape: BoxShape.circle),
+                                    color: navyBlueColor,
+                                    shape: BoxShape.circle),
                                 child: FaIcon(
                                   FontAwesomeIcons.camera,
                                   color: Colors.white,
@@ -373,7 +395,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 height: 60,
                                 width: 60,
                                 decoration: const BoxDecoration(
-                                    color: navyBlueColor, shape: BoxShape.circle),
+                                    color: navyBlueColor,
+                                    shape: BoxShape.circle),
                                 child: const FaIcon(
                                   FontAwesomeIcons.camera,
                                   color: Colors.white,
@@ -405,7 +428,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 height: 60,
                                 width: 60,
                                 decoration: BoxDecoration(
-                                    color: navyBlueColor, shape: BoxShape.circle),
+                                    color: navyBlueColor,
+                                    shape: BoxShape.circle),
                                 child: FaIcon(
                                   FontAwesomeIcons.camera,
                                   color: Colors.white,

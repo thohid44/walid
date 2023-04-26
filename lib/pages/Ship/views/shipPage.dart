@@ -6,19 +6,20 @@ import 'package:triptask/Utils/colors.dart';
 import 'package:triptask/Widget/customText.dart';
 import 'package:triptask/Widget/customTextForm.dart';
 import 'package:triptask/Widget/trip_ship_task_bar.dart';
-import 'package:triptask/pages/Ship/views/shipPage.dart';
+import 'package:triptask/pages/Ship/views/send_a_package.dart';
 import 'package:triptask/pages/Task/views/task_home_page.dart';
 import 'package:triptask/pages/TripPages/views/get_A_Ride.dart';
 import 'package:triptask/pages/TripPages/views/give_A_Ride.dart';
+import 'package:triptask/pages/TripPages/views/trip_page.dart';
 
-class TripPage extends StatefulWidget {
-  TripPage({super.key});
+class ShipHomePage extends StatefulWidget {
+  ShipHomePage({super.key});
 
   @override
-  State<TripPage> createState() => _TripPageState();
+  State<ShipHomePage> createState() => _ShipHomePageState();
 }
 
-class _TripPageState extends State<TripPage> {
+class _ShipHomePageState extends State<ShipHomePage> {
   final TextEditingController search = TextEditingController();
 
   @override
@@ -100,7 +101,7 @@ class _TripPageState extends State<TripPage> {
           SizedBox(
             height: 5.h,
           ),
-         TripShipTaskBar(), 
+          TripShipTaskBar(),
           SizedBox(
             height: 10.h,
           ),
@@ -122,7 +123,7 @@ class _TripPageState extends State<TripPage> {
                       //E6E7E8
                       borderRadius: BorderRadius.circular(10.r)),
                   child: Text(
-                    "Give a Ride",
+                    "Send a Package",
                     style: TextStyle(
                       fontSize: 13.sp,
                       fontWeight: FontWeight.w700,
@@ -145,7 +146,7 @@ class _TripPageState extends State<TripPage> {
                       color: Color(0xff4CA4C7),
                       borderRadius: BorderRadius.circular(10.r)),
                   child: Text(
-                    "Give a Ride",
+                    "Carry a Package",
                     style: TextStyle(
                       fontSize: 13.sp,
                       fontWeight: FontWeight.w700,
@@ -200,7 +201,7 @@ class _TripPageState extends State<TripPage> {
 
   int index = 0;
 
-  List<Widget> widgetList = [GiveARide(), GetARide(), TripTaskPost()];
+  List<Widget> widgetList = [SendAPackage(), GetARide(), TripTaskPost()];
 }
 
 class CustomForm extends StatelessWidget {
