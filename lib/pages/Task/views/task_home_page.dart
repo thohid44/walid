@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -10,6 +8,7 @@ import 'package:triptask/Widget/customTextForm.dart';
 import 'package:triptask/Widget/trip_ship_task_bar.dart';
 import 'package:triptask/offer_a_task.dart';
 import 'package:triptask/pages/Ship/views/shipPage.dart';
+import 'package:triptask/pages/Task/views/offer_a_task.dart';
 import 'package:triptask/pages/Task/views/task_home_page.dart';
 import 'package:triptask/pages/Task/views/want_a_task.dart';
 import 'package:triptask/pages/TripPages/views/get_A_Ride.dart';
@@ -76,8 +75,8 @@ class _TaskHomePageState extends State<TaskHomePage> {
                       padding:
                           EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
                       alignment: Alignment.center,
-                      margin: EdgeInsets.only(right: 15.w),
-                      height: 40.h,
+                      margin: EdgeInsets.only(right: 10.r),
+                      height: 35.h,
                       decoration: BoxDecoration(
                           color: lightNavyColor,
                           borderRadius: BorderRadius.circular(30.r)),
@@ -92,7 +91,7 @@ class _TaskHomePageState extends State<TaskHomePage> {
                           CustomText(
                             "Tab For Balance",
                             white,
-                            FontWeight.w400,
+                            FontWeight.w600,
                             13.sp,
                           ),
                         ],
@@ -104,7 +103,7 @@ class _TaskHomePageState extends State<TaskHomePage> {
           SizedBox(
             height: 5.h,
           ),
-         TripShipTaskBar(), 
+          TripShipTaskBar(),
           SizedBox(
             height: 10.h,
           ),
@@ -161,7 +160,7 @@ class _TaskHomePageState extends State<TaskHomePage> {
             ],
           ),
           SizedBox(
-            height: 10.h,
+            height: 5.h,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -169,7 +168,7 @@ class _TaskHomePageState extends State<TaskHomePage> {
               CustomTextForm(
                 hinttext: "Search",
                 width: 150.w,
-                height: 40.h,
+                height: 35.h,
                 textController: search,
               ),
               InkWell(
@@ -179,7 +178,7 @@ class _TaskHomePageState extends State<TaskHomePage> {
                   });
                 },
                 child: Container(
-                  height: 40.h,
+                  height: 35.h,
                   padding:
                       EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
                   decoration: BoxDecoration(
@@ -196,7 +195,7 @@ class _TaskHomePageState extends State<TaskHomePage> {
               )
             ],
           ),
-          Container(height: 550.h, child: widgetList[index])
+          Container(height: 600.h, child: widgetList[index])
         ],
       ),
     );
@@ -204,7 +203,7 @@ class _TaskHomePageState extends State<TaskHomePage> {
 
   int index = 0;
 
-  List<Widget> widgetList = [OfferATask(), WantATask() ];
+  List<Widget> widgetList = [OfferATask(), WantATask()];
 }
 
 class CustomForm extends StatelessWidget {

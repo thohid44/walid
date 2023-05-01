@@ -9,7 +9,9 @@ class TripTaskPost extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: ListView.builder(itemBuilder: (context, index) {
+      body: ListView.builder(
+        
+        itemBuilder: (context, index) {
         return Container(
           child: Row(
             children: [

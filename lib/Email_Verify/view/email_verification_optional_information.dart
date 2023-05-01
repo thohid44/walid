@@ -157,14 +157,14 @@ class _EmailVerificationOptionalInfoState
 
   List<DropdownMenuItem<String>> get dropdownItemday {
     List<DropdownMenuItem<String>> menuItems = [
-      const DropdownMenuItem(child: Text("Select Gender"), value: "Select Gender"),
-      const DropdownMenuItem(child: Text("Male"), value: "Male"),
-      const DropdownMenuItem(child: Text("Female"), value: "Female"),
+      const DropdownMenuItem(child: Text("Blood Group"), value: "Blood Group"),
+      const DropdownMenuItem(child: Text("A+"), value: "A+"),
+      const DropdownMenuItem(child: Text("B+"), value: "B+"),
     ];
     return menuItems;
   }
 
-  String gender = "Select Gender"; 
+  String gender = "Blood Group"; 
   Widget customDropDown() {
     return Card(
       child: Container(

@@ -130,7 +130,7 @@ class GetARide extends StatelessWidget {
                   underline: SizedBox(),
                   style: TextStyle(
                       fontSize: 12.sp,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.normal,
                       color: Colors.black),
                   value: vehicle,
                   onChanged: (value) {},
@@ -151,7 +151,7 @@ class GetARide extends StatelessWidget {
                   underline: SizedBox(),
                   style: TextStyle(
                       fontSize: 12.sp,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.normal,
                       color: Colors.black),
                   value: howMany,
                   onChanged: (value) {},
@@ -181,7 +181,7 @@ class GetARide extends StatelessWidget {
                     underline: SizedBox(),
                     style: TextStyle(
                         fontSize: 12.sp,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.normal,
                         color: Colors.black),
                     value: prefer,
                     onChanged: (value) {},
@@ -201,7 +201,7 @@ class GetARide extends StatelessWidget {
                     "willing to pay",
                     style: TextStyle(
                         fontSize: 12.sp,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.normal,
                         color: Colors.black),
                   ),
                 ),
@@ -218,7 +218,7 @@ class GetARide extends StatelessWidget {
                     underline: SizedBox(),
                     style: TextStyle(
                         fontSize: 12.sp,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.normal,
                         color: Colors.black),
                     value: willing,
                     onChanged: (value) {},

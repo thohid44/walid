@@ -79,7 +79,7 @@ class GiveARide extends StatelessWidget {
                   underline: SizedBox(),
                   style: TextStyle(
                       fontSize: 14.sp,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.normal,
                       color: Colors.black),
                   value: startPoint,
                   onChanged: (value) {},
@@ -131,7 +131,7 @@ class GiveARide extends StatelessWidget {
                   underline: SizedBox(),
                   style: TextStyle(
                       fontSize: 14.sp,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.normal,
                       color: Colors.black),
                   value: startPoint,
                   onChanged: (value) {},
@@ -162,7 +162,7 @@ class GiveARide extends StatelessWidget {
                   underline: SizedBox(),
                   style: TextStyle(
                       fontSize: 14.sp,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.normal,
                       color: Colors.black),
                   value: vehicle,
                   onChanged: (value) {},
@@ -182,7 +182,7 @@ class GiveARide extends StatelessWidget {
                   underline: SizedBox(),
                   style: TextStyle(
                       fontSize: 14.sp,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.normal,
                       color: Colors.black),
                   value: vehicle,
                   onChanged: (value) {},

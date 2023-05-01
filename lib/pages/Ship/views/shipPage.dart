@@ -6,6 +6,7 @@ import 'package:triptask/Utils/colors.dart';
 import 'package:triptask/Widget/customText.dart';
 import 'package:triptask/Widget/customTextForm.dart';
 import 'package:triptask/Widget/trip_ship_task_bar.dart';
+import 'package:triptask/pages/Ship/views/carry_a_package.dart';
 import 'package:triptask/pages/Ship/views/send_a_package.dart';
 import 'package:triptask/pages/Task/views/task_home_page.dart';
 import 'package:triptask/pages/TripPages/views/get_A_Ride.dart';
@@ -201,7 +202,7 @@ class _ShipHomePageState extends State<ShipHomePage> {
 
   int index = 0;
 
-  List<Widget> widgetList = [SendAPackage(), GetARide(), TripTaskPost()];
+  List<Widget> widgetList = [SendAPackage(), CarryAPackage(),  TripTaskPost()];
 }
 
 class CustomForm extends StatelessWidget {
