@@ -16,7 +16,8 @@ class StarRating32 extends StatelessWidget {
           Positioned(
             top: 30.h,
             child: CircleAvatar(
-            backgroundImage: AssetImage("assets/man.jpg"),
+         
+            backgroundImage: AssetImage("assets/man.jpg",),
           )), 
           Container(
             margin: EdgeInsets.only(top: 40.h),
