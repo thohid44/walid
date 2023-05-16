@@ -39,6 +39,7 @@ dependencies:
   flutter_screenutil: ^5.7.0
   font_awesome_flutter: ^10.4.0
   google_maps_flutter: ^2.2.5
+  http: ^0.13.6
   
 dev_dependencies:
   flutter_test:

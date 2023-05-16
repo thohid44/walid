@@ -7,6 +7,7 @@ import 'package:triptask/Widget/customButtonOne.dart';
 import 'package:triptask/Widget/customTextForm.dart';
 import 'package:triptask/Widget/space_widgeter.dart';
 import 'package:triptask/pages/Home/view/home_screen.dart';
+import 'package:triptask/pages/Login/controller/LoginController.dart';
 import 'package:triptask/pages/Login/view/registration_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -19,9 +20,10 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
-
+  var con = Get.put(LoginController()); 
   @override
   Widget build(BuildContext context) {
+    
     return SafeArea(
       child: Scaffold(
         backgroundColor: Color.fromRGBO(255, 255, 255, 1),
