@@ -100,8 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 fontSize: 18.sp,
                 fontWeight: FontWeight.bold,
                 onTab: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()));
+                 con.login(_email.text.toString(), _password.text.toString());
                 }),
             SpaceWidget(
               hight: 20.h,
