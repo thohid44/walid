@@ -1,10 +1,7 @@
 
-import 'dart:convert';
-
-import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 class ApiService {
-static String baseUrl = ''; 
+static String baseUrl = 'http://api.tripshiptask.com/api'; 
 static var client = http.Client();  
 var token=''; 
    Future getRequest(String path) async{
@@ -33,11 +30,11 @@ var token='';
     var headers = {
         'Content-Type':'application/json;charset=UTF-8', 
         'Accept':'application/json', 
-        'Authorization':'Bearer '+token,
+       
     }; 
 
     try{
-        final response = await http.post(url,headers:headers); 
+        final response = await client.post(url,headers:headers,body: data); 
         print(response.body); 
 
     if(response.statusCode==200 || response.statusCode==204)
