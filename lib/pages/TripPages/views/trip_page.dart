@@ -145,7 +145,7 @@ class _TripPageState extends State<TripPage> {
                       color: Color(0xff4CA4C7),
                       borderRadius: BorderRadius.circular(10.r)),
                   child: Text(
-                    "Give a Ride",
+                    "Get a Ride",
                     style: TextStyle(
                       fontSize: 13.sp,
                       fontWeight: FontWeight.w700,

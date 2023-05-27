@@ -1,11 +1,20 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:triptask/Utils/colors.dart';
 import 'package:triptask/Widget/customButtonOne.dart';
 import 'package:triptask/pages/TripPages/views/trip_page.dart';
 
-class SendAPackage extends StatelessWidget {
+class SendAPackage extends StatefulWidget {
+  @override
+  State<SendAPackage> createState() => _SendAPackageState();
+}
+
+class _SendAPackageState extends State<SendAPackage> {
   final TextEditingController search = TextEditingController();
+
   List<DropdownMenuItem<String>> get vehicleItem {
     List<DropdownMenuItem<String>> destination = [
       const DropdownMenuItem(
@@ -74,6 +83,14 @@ class SendAPackage extends StatelessWidget {
 
   String willing = "USD";
 
+final TextEditingController pickup = TextEditingController(); 
+
+final TextEditingController dateData= TextEditingController(); 
+
+final TextEditingController timeData = TextEditingController(); 
+
+final TextEditingController dropOff= TextEditingController(); 
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -85,9 +102,10 @@ class SendAPackage extends StatelessWidget {
             width: 320.w,
             height: 35.h,
             child: CustomForm(
+            
               hinttext: "Pick Up",
               radius: 5.r,
-              textController: search,
+              textController: pickup,
             )),
         SizedBox(
           height: 5.h,
@@ -97,22 +115,13 @@ class SendAPackage extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                  width: 150.w,
-                  height: 35.h,
-                  child: CustomForm(
-                    hinttext: "Date you plan to mail the item",
-                    radius: 5.r,
-                    textController: search,
-                  )),
-              Container(
-                  width: 150.w,
-                  height: 35.h,
-                  child: CustomForm(
-                    hinttext: "Time you plan to mail the item",
-                    radius: 5.r,
-                    textController: search,
-                  ))
+                 Container(width: 160.w, height: 45.h, child: _buildDatePicker()),
+           
+                  InkWell(
+                    onTap: _showTimePicker,
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: 160.w, height: 45.h, child:_timeOfDay !=null?Text(_timeOfDay!.format(context).toString()): Text("Select Time"),)),
             ],
           ),
         ),
@@ -126,7 +135,7 @@ class SendAPackage extends StatelessWidget {
             child: CustomForm(
               hinttext: "Drop Off ",
               radius: 5.r,
-              textController: search,
+              textController: dropOff,
             )),
         SizedBox(
           height: 5.h,
@@ -165,22 +174,20 @@ class SendAPackage extends StatelessWidget {
               SizedBox(
                 width: 5.w,
               ),
-              Container(
-                alignment: Alignment.center,
-                height: 35.h,
-                width: 155.w,
-                decoration: BoxDecoration(
-                    border: Border.all(width: 1.w, color: Colors.grey),
-                    borderRadius: BorderRadius.circular(10.r)),
-                child: DropdownButton(
-                  underline: SizedBox(),
-                  style: TextStyle(
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
-                  value: deliveryTime,
-                  onChanged: (value) {},
-                  items: deliveryTimes,
+              InkWell(
+                onTap: _deliveryTimePicker,
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 35.h,
+                  width: 155.w,
+                  decoration: BoxDecoration(
+                      border: Border.all(width: 1.w, color: Colors.grey),
+                      borderRadius: BorderRadius.circular(10.r)),
+                  // ignore: unnecessary_null_comparison
+                  child: delivaryTime !=null ? Text(delivaryTime!.format(context).toString()):  Text("Perferred delivery time" ,style: TextStyle(
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),)
                 ),
               ),
             ],
@@ -201,7 +208,7 @@ class SendAPackage extends StatelessWidget {
               Card(
                 child: Container(
                   height: 35.h,
-                  width: 90.w,
+                  width: 80.w,
                   alignment: Alignment.center,
                   child: Text(
                     "willing to pay",
@@ -298,7 +305,7 @@ class SendAPackage extends StatelessWidget {
                  Container(
                 alignment: Alignment.center,
                 height: 35.h,
-                width: 155.w,
+                width: 140.w,
                 decoration: BoxDecoration(
                     border: Border.all(width: 1.w, color: Colors.grey),
                     borderRadius: BorderRadius.circular(10.r)),
@@ -316,13 +323,13 @@ class SendAPackage extends StatelessWidget {
               Card(
                 child: Container(
                   height: 35.h,
-                  width: 110.w,
+                  width: 100.w,
                   alignment: Alignment.center,
                   child: Text(
                     "Weight of package",
                     style: TextStyle(
                         fontSize: 12.sp,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w600,
                         color: Colors.black),
                   ),
                 ),
@@ -331,14 +338,16 @@ class SendAPackage extends StatelessWidget {
                 child: Container(
                   alignment: Alignment.center,
                   height: 30.h,
-                  width: 40.w,
+                  padding: EdgeInsets.symmetric(horizontal: 2.w),
+                  width: 45.w,
                   decoration: BoxDecoration(
                       border: Border.all(width: 1.w, color: Colors.grey),
-                      borderRadius: BorderRadius.circular(10.r)),
+                      borderRadius: BorderRadius.circular(5.r)),
                   child: DropdownButton(
                     underline: SizedBox(),
+                    isExpanded: true,
                     style: TextStyle(
-                        fontSize: 12.sp,
+                        fontSize: 11.sp,
                         fontWeight: FontWeight.bold,
                         color: Colors.black),
                     value: weightOfPackage,
@@ -375,4 +384,97 @@ class SendAPackage extends StatelessWidget {
       ],
     );
   }
+
+   
+
+  DateTime selectedDate = DateTime.now();
+
+
+  late String date;
+
+  late String weekDay;
+
+  Widget _buildDatePicker() {
+    return TextFormField(
+        controller: dateData,
+        readOnly: true,
+        textAlign: TextAlign.center,
+        decoration:  InputDecoration(
+          contentPadding: EdgeInsets.all(8.0),
+          suffixIcon:const Icon(
+            Icons.date_range,
+            color: Colors.black,
+          ),
+          hintText: "Select date",
+          hintMaxLines: 1,
+          hintStyle: TextStyle(fontSize: 15.0),
+          enabledBorder:
+              OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+          focusedBorder:
+              OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+        ),
+        onTap: () async {
+          final pickedDate = await selectDate(
+              context: context,
+              initialDate: selectedDate,
+              allowedDays: _allowedDays);
+          if (pickedDate != null && pickedDate != selectedDate) {
+            setState(() {
+              selectedDate = pickedDate;
+              dateData.text =
+                  DateFormat('yyyy-MM-dd').format(selectedDate);
+              print("thohid ${dateData.text}");
+            });
+          }
+        });
+  }
+
+  bool _allowedDays(DateTime day) {
+    if ((day.isBefore(DateTime.now()))) {
+      return true;
+    }
+    return false;
+  }
+
+  selectDate(
+      {required BuildContext context,
+      required DateTime initialDate,
+      required allowedDays}) async {
+    final selected = await showDatePicker(
+      context: context,
+      initialDate: initialDate,
+      firstDate: DateTime(2010),
+      lastDate: DateTime(2025),
+      selectableDayPredicate: allowedDays,
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(),
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
+    return selected;
+  }
+
+  TimeOfDay? _timeOfDay;
+  void _showTimePicker() async{
+    showTimePicker(context: context, initialTime: TimeOfDay.now()).then((value) {
+      setState(() {
+        _timeOfDay = value!;
+      });
+    });
+  }
+    TimeOfDay? delivaryTime;
+  void _deliveryTimePicker() async{
+    showTimePicker(context: context, initialTime: TimeOfDay.now()).then((value) {
+      setState(() {
+        delivaryTime = value!;
+      });
+    });
+  }
+    
 }

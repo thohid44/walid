@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:triptask/Utils/colors.dart';
 import 'package:triptask/Widget/customButtonOne.dart';
+import 'package:triptask/pages/TripPages/controller/TripController.dart';
 import 'package:triptask/pages/TripPages/views/trip_page.dart';
 
 class GetARide extends StatelessWidget {
@@ -16,17 +18,25 @@ class GetARide extends StatelessWidget {
   }
 
   String vehicle = "Select vehicle";
+  var vehicled; 
+  final TextEditingController startPoint = TextEditingController(); 
+   final TextEditingController description = TextEditingController(); 
+    final TextEditingController note = TextEditingController(); 
+
 
   List<DropdownMenuItem<String>> get howManyYou {
     List<DropdownMenuItem<String>> destination = [
       const DropdownMenuItem(
           child: Text("How many of you"), value: "How many of you"),
       const DropdownMenuItem(child: Text("1"), value: "1"),
+       const DropdownMenuItem(child: Text("2"), value: "2"),
+        const DropdownMenuItem(child: Text("3"), value: "3"),
     ];
     return destination;
   }
 
   String howMany = "How many of you";
+  var howmay ;
 
   List<DropdownMenuItem<String>> get preferRide {
     List<DropdownMenuItem<String>> destination = [
@@ -39,6 +49,8 @@ class GetARide extends StatelessWidget {
   }
 
   String prefer = "Prefer to get ride from";
+  var prefered;
+
   List<DropdownMenuItem<String>> get willingPay {
     List<DropdownMenuItem<String>> destination = [
       const DropdownMenuItem(child: Text("USD"), value: "USD"),
@@ -48,9 +60,10 @@ class GetARide extends StatelessWidget {
   }
 
   String willing = "USD";
+  var currency; 
   @override
   Widget build(BuildContext context) {
-  
+  var controller = Get.put(TripController());
     return Column(
       children: [
         SizedBox(
@@ -62,7 +75,7 @@ class GetARide extends StatelessWidget {
             child: CustomForm(
               hinttext: "Start Point",
               radius: 5.r,
-              textController: search,
+              textController: startPoint,
             )),
         SizedBox(
           height: 5.h,
@@ -101,7 +114,7 @@ class GetARide extends StatelessWidget {
             child: CustomForm(
               hinttext: "Destination ",
               radius: 5.r,
-              textController: search,
+              textController: description,
             )),
         SizedBox(
           height: 5.h,
@@ -133,7 +146,11 @@ class GetARide extends StatelessWidget {
                       fontWeight: FontWeight.normal,
                       color: Colors.black),
                   value: vehicle,
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                    print(value); 
+                    vehicled = value; 
+                   
+                  },
                   items: vehicleItem,
                 ),
               ),
@@ -154,7 +171,10 @@ class GetARide extends StatelessWidget {
                       fontWeight: FontWeight.normal,
                       color: Colors.black),
                   value: howMany,
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                    howmay = value; 
+                     print(value); 
+                  },
                   items: howManyYou,
                 ),
               ),
@@ -184,7 +204,10 @@ class GetARide extends StatelessWidget {
                         fontWeight: FontWeight.normal,
                         color: Colors.black),
                     value: prefer,
-                    onChanged: (value) {},
+                    onChanged: (value) {
+                      prefered = value; 
+                       print(value); 
+                    },
                     items: preferRide,
                   ),
                 ),
@@ -221,7 +244,10 @@ class GetARide extends StatelessWidget {
                         fontWeight: FontWeight.normal,
                         color: Colors.black),
                     value: willing,
-                    onChanged: (value) {},
+                    onChanged: (value) {
+                      currency=value; 
+                       print(value); 
+                    },
                     items: willingPay,
                   ),
                 ),
@@ -235,6 +261,7 @@ class GetARide extends StatelessWidget {
         Container(
           margin: EdgeInsets.symmetric(horizontal: 20.w),
           child: TextFormField(
+            controller: note,
             decoration: InputDecoration(
               hintText: "Note",
               border: OutlineInputBorder(),
@@ -247,7 +274,16 @@ class GetARide extends StatelessWidget {
         ),
         CustomButtonOne(
           title: "Sumbit",
-          onTab: () {},
+          onTab: () {
+          
+              // print(startPoint.text.toString());
+              //     print(description.text.toString());
+              //         print(vehicled); 
+           
+               
+
+             controller.getTripRide(startPoint.text.toString(), description.text.toString(),howmay, note.text.toString(),vehicled,prefered,currency,);
+          },
           height: 40.h,
           width: 150.w,
           btnColor: navyBlueColor,

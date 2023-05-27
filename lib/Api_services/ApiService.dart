@@ -1,73 +1,44 @@
 
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:triptask/Utils/localstorekey.dart';
 class ApiService {
 static String baseUrl = 'http://api.tripshiptask.com/api'; 
 static var client = http.Client();  
 var token=''; 
-   Future getRequest(String path) async{
-    var url = Uri.parse(baseUrl+path); 
-    var headers = {
-        'Content-Type':'application/json; charset=UTF-8', 
-        'Accept':'application/json', 
-        'Authorization':'Bearer '+token
-    }; 
 
-    try{
-        final response = await http.get(url,headers:headers); 
-        print(response.body); 
+    
+final _box = GetStorage();
+var isLoading = false.obs; 
+//sPoint,des,note, prefered,howmany, currency,vehicled
 
-    if(response.statusCode==200 || response.statusCode==204)
-    {
-        return response; 
-    }
-    }catch(e){
-        print(e);
-    }
+  postData(mapData,String link) async{
+ var token = _box.read(LocalStoreKey.token); 
 
-    }
-    Future postRequest(String path,Map data) async{
-    var url = Uri.parse(baseUrl+path); 
-    var headers = {
-        'Content-Type':'application/json;charset=UTF-8', 
-        'Accept':'application/json', 
-       
-    }; 
 
-    try{
-        final response = await client.post(url,headers:headers,body: data); 
-        print(response.body); 
-
-    if(response.statusCode==200 || response.statusCode==204)
-    {
-        return response; 
-    }
-    }catch(e){
-        print(e);
-    }
-
-    }
-      Future postWithOutData(String path) async {
-    var url = Uri.parse(baseUrl+path);
-    var headers={
-      'Content-Type': 'application/json; charset=UTF-8',
-      'Accept':'application/json',
-      'Authorization': 'Bearer '+token,
-    };
-
-    try{
-      final response = await http.post(url,headers: headers,);
-      if (response.statusCode == 200 || response.statusCode==422) {
-        return response;
+    try {
+      isLoading(true);
+      var response = await http.post(Uri.parse("http://api.tripshiptask.com/api/$link"),
+      headers: {
+      
+        'Accept':'application/json',
+        'Authorization': 'Bearer '+token,
+      },
+       body: mapData);
+      if (response.statusCode == 201) {
+        print(response.statusCode); 
+        var jsonData = jsonDecode(response.body);
+print(jsonData); 
+  Get.snackbar("Get Ride", "Successfully Store",
+  backgroundColor: Colors.deepOrange
+  ); 
       }
-      else if(response.statusCode==401){
-        // authCtrl.logOut();
-      //  return Get.off(()=>Login());
-      }
-      else {
-        // Get.to(()=>const Error404());
-      }
-    }catch(e){
-      print(e);
+    } catch (e) {
+      print("Error $e");
     }
   }
 }
