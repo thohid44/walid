@@ -1,11 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:triptask/Utils/colors.dart';
 import 'package:triptask/Widget/customButtonOne.dart';
 import 'package:triptask/pages/TripPages/views/trip_page.dart';
 
-class CarryAPackage extends StatelessWidget {
+import '../controller/carry_package_controller.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+class CarryAPackage extends StatefulWidget {
+
+  @override
+  State<CarryAPackage> createState() => _CarryAPackageState();
+}
+
+class _CarryAPackageState extends State<CarryAPackage> {
+  var controller = Get.put(CarryPackageController());
+
   final TextEditingController search = TextEditingController();
+
+    final TextEditingController pickup = TextEditingController();
+
+    final TextEditingController note = TextEditingController();
+
   List<DropdownMenuItem<String>> get vehicleItem {
     List<DropdownMenuItem<String>> destination = [
       const DropdownMenuItem(
@@ -72,7 +89,7 @@ class CarryAPackage extends StatelessWidget {
     return destination;
   }
 
-  String willing = "USD";
+  String willpay = "USD";
 
   @override
   Widget build(BuildContext context) {
@@ -105,16 +122,16 @@ class CarryAPackage extends StatelessWidget {
                 decoration: BoxDecoration(
                     border: Border.all(width: 1.w, color: Colors.grey),
                     borderRadius: BorderRadius.circular(10.r)),
-                child: DropdownButton(
-                  underline: SizedBox(),
-                  style: TextStyle(
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.normal,
-                      color: Colors.black),
-                  value: vehicle,
-                  onChanged: (value) {},
-                  items: vehicleItem,
-                ),
+          //      child:  _buildDatePicker()
+          child: SfDateRangePicker(
+    selectableDayPredicate: (DateTime dateTime) {
+      if (dateTime == DateTime(2021, 9, 5)) {
+        return false;
+      }
+      return true;
+    },
+  ),
+
               ),
               SizedBox(
                 width: 5.w,
@@ -126,16 +143,8 @@ class CarryAPackage extends StatelessWidget {
                 decoration: BoxDecoration(
                     border: Border.all(width: 1.w, color: Colors.grey),
                     borderRadius: BorderRadius.circular(10.r)),
-                child: DropdownButton(
-                  underline: SizedBox(),
-                  style: TextStyle(
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.normal,
-                      color: Colors.black),
-                  value: deliveryTime,
-                  onChanged: (value) {},
-                  items: deliveryTimes,
-                ),
+                
+                
               ),
             ],
           ),
@@ -248,8 +257,11 @@ class CarryAPackage extends StatelessWidget {
                         fontSize: 12.sp,
                         fontWeight: FontWeight.normal,
                         color: Colors.black),
-                    value: willing,
-                    onChanged: (value) {},
+                    value: willpay,
+                    onChanged: (value) {
+                      willpay = value!; 
+                      print(willpay); 
+                    },
                     items: willingPay,
                   ),
                 ),
@@ -302,7 +314,10 @@ class CarryAPackage extends StatelessWidget {
                       fontWeight: FontWeight.normal,
                       color: Colors.black),
                   value: packageType,
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                    packageType = value!;
+                    print(packageType);
+                  },
                   items: packageTypes,
                 ),
               ),
@@ -316,6 +331,7 @@ class CarryAPackage extends StatelessWidget {
         Container(
           margin: EdgeInsets.symmetric(horizontal: 20.w),
           child: TextFormField(
+            controller: note,
             decoration: InputDecoration(
               hintText: "Note",
               border: OutlineInputBorder(),
@@ -328,7 +344,11 @@ class CarryAPackage extends StatelessWidget {
         ),
         CustomButtonOne(
           title: "Sumbit",
-          onTab: () {},
+          onTab: () {
+            print(pickDate); 
+            print(deliveryDate); 
+          //  controller.carryPackage();
+          },
           height: 40.h,
           width: 150.w,
           btnColor: navyBlueColor,
@@ -336,5 +356,135 @@ class CarryAPackage extends StatelessWidget {
         )
       ],
     );
+  }
+
+  DateTime selectedDate = DateTime.now();
+
+  late String date;
+
+  late String weekDay;
+final TextEditingController pickDate = TextEditingController(); 
+final TextEditingController deliveryDate = TextEditingController(); 
+  Widget _buildDatePicker() {
+    return TextFormField(
+        controller: pickDate,
+        readOnly: true,
+        textAlign: TextAlign.center,
+        decoration:  const InputDecoration(
+          contentPadding: EdgeInsets.all(8.0),
+          suffixIcon: Icon(
+            Icons.date_range,
+            color: Colors.black,
+          ),
+          hintText: "Preferred delivery date",
+          hintMaxLines: 1,
+          hintStyle: TextStyle(fontSize: 15.0),
+          enabledBorder:
+              OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+          focusedBorder:
+              OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+        ),
+        onTap: () async {
+          final pickedDate = await selectDate(
+              context: context,
+              initialDate: selectedDate,
+              allowedDays: _allowedDays);
+          if (pickedDate != null && pickedDate != selectedDate) {
+            setState(() {
+              selectedDate = pickedDate;
+              pickDate.text =
+                  DateFormat('yyyy-MM-dd').format(selectedDate);
+              print("thohid ${pickDate.text}");
+            });
+          }
+        });
+  }
+
+Widget _buildPreperDeliveryDatePicker() {
+    return TextFormField(
+        controller: deliveryDate,
+        readOnly: true,
+        textAlign: TextAlign.center,
+        decoration:  const InputDecoration(
+          contentPadding: EdgeInsets.all(8.0),
+          suffixIcon: Icon(
+            Icons.date_range,
+            color: Colors.black,
+          ),
+          hintText: "Perferred delivery date",
+          hintMaxLines: 1,
+          hintStyle: TextStyle(fontSize: 15.0),
+          enabledBorder:
+              OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+          focusedBorder:
+              OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+        ),
+        onTap: () async {
+          final pickedDate = await selectDate(
+              context: context,
+              initialDate: selectedDate,
+              allowedDays: _allowedDays);
+          if (pickedDate != null && pickedDate != selectedDate) {
+            setState(() {
+            
+             deliveryDate.text =
+                  DateFormat('yyyy-MM-dd').format(pickedDate);
+              print("thohid ${deliveryDate.text}");
+            });
+          }
+        });
+  }
+
+  bool _allowedDays(DateTime day) {
+    if ((day.isBefore(DateTime.now()))) {
+      return true;
+    }
+    return false;
+  }
+
+  selectDate(
+      {required BuildContext context,
+       DateTime? initialDate,
+      required allowedDays}) async {
+    final selected = await showDatePicker(
+      context: context,
+      initialDate: initialDate!,
+      firstDate: DateTime(2010),
+      lastDate: DateTime(2029),
+      selectableDayPredicate: allowedDays,
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(),
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
+    return selected;
+  }
+
+ var pickupTime;
+
+  void _showTimePicker() async{
+    showTimePicker(context: context, initialTime: TimeOfDay.now()).then((value) {
+      setState(() {
+        print(value);
+        pickupTime = value;
+        print(pickupTime);
+      });
+    });
+  }
+
+    TimeOfDay? delivaryTime;
+
+  void _deliveryTimePicker() async{
+    showTimePicker(context: context, initialTime: TimeOfDay.now()).then((value) {
+      setState(() {
+        delivaryTime = value!;
+      });
+    });
   }
 }
