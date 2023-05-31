@@ -4,13 +4,14 @@ import 'package:triptask/Api_services/ApiService.dart';
 class CarryPackageController extends GetxController{
 
 
-carryPackage(String pickup, String pickDate, String pickTime, String dropOff,   deliveryTime,  deliveryDate, String currency, String sendItem, String goodType, String approxiValue, String packageType, String weight, String note,) async{
+carryPackage(String pickup, String pickDate, String pickTime, String dropOff,   deliveryTime,
+  deliveryDate, String currency,  String packageType,String note,) async{
    var mapData ={
     "ship_id": "porro",
-    "pickuppoint": "et",
+    "pickuppoint": pickup,
     "date": "omnis",
     "time": "officiis",
-    "delivery_date": "exercitationem",
+    "delivery_date": "",
     "delivery_time": "minima",
     "dropoffpoint": "harum",
     "amount": "mollitia",

@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -7,7 +10,6 @@ import 'package:triptask/Widget/customButtonOne.dart';
 import 'package:triptask/pages/TripPages/views/trip_page.dart';
 
 import '../controller/carry_package_controller.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 class CarryAPackage extends StatefulWidget {
 
   @override
@@ -20,30 +22,12 @@ class _CarryAPackageState extends State<CarryAPackage> {
   final TextEditingController search = TextEditingController();
 
     final TextEditingController pickup = TextEditingController();
-
+ final TextEditingController dropoffpoint= TextEditingController();
     final TextEditingController note = TextEditingController();
 
-  List<DropdownMenuItem<String>> get vehicleItem {
-    List<DropdownMenuItem<String>> destination = [
-      const DropdownMenuItem(
-          child: Text("Perferred delivery date"), value: "Perferred delivery date"),
-     
-    ];
-    return destination;
-  }
 
-  String vehicle = "Perferred delivery date";
 
-  List<DropdownMenuItem<String>> get deliveryTimes {
-    List<DropdownMenuItem<String>> destination = [
-      const DropdownMenuItem(
-          child: Text("Perferred delivery time"), value: "Perferred delivery time"),
-      
-    ];
-    return destination;
-  }
-
-  String deliveryTime = "Perferred delivery time";
+ 
 
   List<DropdownMenuItem<String>> get typeOfGoods {
     List<DropdownMenuItem<String>> destination = [
@@ -63,6 +47,13 @@ class _CarryAPackageState extends State<CarryAPackage> {
           child: Text("Packaging type"),
           value: "Packaging type"),
       
+       const DropdownMenuItem(
+          child: Text("Type 1"),
+          value: "Type 1"),
+            
+       const DropdownMenuItem(
+          child: Text("Type 2"),
+          value: "Type 2"),
     ];
     return destination;
   }
@@ -89,7 +80,8 @@ class _CarryAPackageState extends State<CarryAPackage> {
     return destination;
   }
 
-  String willpay = "USD";
+  String currency = "USD";
+  DateTime _dates = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -115,36 +107,46 @@ class _CarryAPackageState extends State<CarryAPackage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                alignment: Alignment.center,
-                height: 35.h,
-                width: 155.w,
-                decoration: BoxDecoration(
-                    border: Border.all(width: 1.w, color: Colors.grey),
-                    borderRadius: BorderRadius.circular(10.r)),
-          //      child:  _buildDatePicker()
-          child: SfDateRangePicker(
-    selectableDayPredicate: (DateTime dateTime) {
-      if (dateTime == DateTime(2021, 9, 5)) {
-        return false;
-      }
-      return true;
-    },
-  ),
-
+              InkWell
+              (
+                onTap: () {
+                  pickUpDatePicker(context);
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 35.h,
+                  width: 155.w,
+                  decoration: BoxDecoration(
+                      border: Border.all(width: 1.w, color: Colors.grey),
+                      borderRadius: BorderRadius.circular(10.r)),
+                  child: pickStatus ==true? Text(
+              "${pickDate.year}-${pickDate.month}-${pickDate.day}",
+              style:  TextStyle(fontSize: 14.sp, color: Colors.black, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ):Text(" Pick Up Date"),
+                         ),
               ),
               SizedBox(
                 width: 5.w,
               ),
-              Container(
-                alignment: Alignment.center,
-                height: 35.h,
-                width: 155.w,
-                decoration: BoxDecoration(
-                    border: Border.all(width: 1.w, color: Colors.grey),
-                    borderRadius: BorderRadius.circular(10.r)),
-                
-                
+              InkWell
+              (
+                onTap: () {
+                   deliveryDatePicker(context);
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 35.h,
+                  width: 155.w,
+                  decoration: BoxDecoration(
+                      border: Border.all(width: 1.w, color: Colors.grey),
+                      borderRadius: BorderRadius.circular(10.r)),
+                  child: Text(
+              "${deliveryDate.hour}-${deliveryDate.minute}",
+              style:  TextStyle(fontSize: 14.sp, color: Colors.black, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+                         ),
               ),
             ],
           ),
@@ -159,59 +161,56 @@ class _CarryAPackageState extends State<CarryAPackage> {
             child: CustomForm(
               hinttext: "Preferred Drop Off(Optional) ",
               radius: 5.r,
-              textController: search,
+              textController: dropoffpoint,
             )),
         SizedBox(height: 5.h,), 
-        Container(
-          color: Colors.grey,
-          height: 200,
-          width: 320.w,
-        ),
+        // Container(
+        //   color: Colors.grey,
+        //   height: 200,
+        //   width: 320.w,
+        // ),
         SizedBox(
           height: 5.h,
         ),
+      
         Container(
           margin: EdgeInsets.symmetric(horizontal: 20.w),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                alignment: Alignment.center,
-                height: 35.h,
-                width: 155.w,
-                decoration: BoxDecoration(
-                    border: Border.all(width: 1.w, color: Colors.grey),
-                    borderRadius: BorderRadius.circular(10.r)),
-                child: DropdownButton(
-                  underline: SizedBox(),
-                  style: TextStyle(
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.normal,
-                      color: Colors.black),
-                  value: vehicle,
-                  onChanged: (value) {},
-                  items: vehicleItem,
-                ),
+                     InkWell
+              (
+                onTap: () {
+                 deliveryDatePicker(context);
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 35.h,
+                  width: 155.w,
+                  decoration: BoxDecoration(
+                      border: Border.all(width: 1.w, color: Colors.grey),
+                      borderRadius: BorderRadius.circular(10.r)),
+                  child: deliveryStatus==false? Text(
+              "${deliveryDate.year}-${deliveryDate.month}-${deliveryDate.day}",
+              style:  TextStyle(fontSize: 14.sp, color: Colors.black, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ):Text("Perferred delivery date"),
+                         ),
               ),
+           
               SizedBox(
                 width: 5.w,
               ),
-              Container(
-                alignment: Alignment.center,
-                height: 35.h,
-                width: 155.w,
-                decoration: BoxDecoration(
-                    border: Border.all(width: 1.w, color: Colors.grey),
-                    borderRadius: BorderRadius.circular(10.r)),
-                child: DropdownButton(
-                  underline: SizedBox(),
-                  style: TextStyle(
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.normal,
-                      color: Colors.black),
-                  value: deliveryTime,
-                  onChanged: (value) {},
-                  items: deliveryTimes,
+              InkWell(
+                onTap:  _showTimePicker,
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 35.h,
+                  width: 155.w,
+                  decoration: BoxDecoration(
+                      border: Border.all(width: 1.w, color: Colors.grey),
+                      borderRadius: BorderRadius.circular(10.r)),
+                  child: Text("data")
                 ),
               ),
             ],
@@ -257,33 +256,27 @@ class _CarryAPackageState extends State<CarryAPackage> {
                         fontSize: 12.sp,
                         fontWeight: FontWeight.normal,
                         color: Colors.black),
-                    value: willpay,
+                    value: currency,
                     onChanged: (value) {
-                      willpay = value!; 
-                      print(willpay); 
+                      currency = value!; 
+                      print(currency); 
                     },
                     items: willingPay,
                   ),
                 ),
               ),
-                 Container(
-                alignment: Alignment.center,
-                height: 35.h,
-                width: 155.w,
-                decoration: BoxDecoration(
-                    border: Border.all(width: 1.w, color: Colors.grey),
-                    borderRadius: BorderRadius.circular(10.r)),
-                child: DropdownButton(
-                  underline: SizedBox(),
-                  style: TextStyle(
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.normal,
-                      color: Colors.black),
-                  value: deliveryTime,
-                  onChanged: (value) {},
-                  items: deliveryTimes,
-                ),
-              ),
+                 InkWell(
+                  onTap:  _showTimePicker,
+                   child: Container(
+                                 alignment: Alignment.center,
+                                 height: 35.h,
+                                 width: 155.w,
+                                 decoration: BoxDecoration(
+                      border: Border.all(width: 1.w, color: Colors.grey),
+                      borderRadius: BorderRadius.circular(10.r)),
+                                 child:Text("data")
+                               ),
+                 ),
             ],
           ),
         ),
@@ -347,7 +340,9 @@ class _CarryAPackageState extends State<CarryAPackage> {
           onTab: () {
             print(pickDate); 
             print(deliveryDate); 
-          //  controller.carryPackage();
+
+           controller.carryPackage(pickup.toString(),pickDate.toString(),pickupTime, dropoffpoint.toString(), 
+           deliveryDate, delivaryTime,currency, packageType,note.text.toString() );
           },
           height: 40.h,
           width: 150.w,
@@ -358,112 +353,64 @@ class _CarryAPackageState extends State<CarryAPackage> {
     );
   }
 
-  DateTime selectedDate = DateTime.now();
 
-  late String date;
 
-  late String weekDay;
-final TextEditingController pickDate = TextEditingController(); 
-final TextEditingController deliveryDate = TextEditingController(); 
-  Widget _buildDatePicker() {
-    return TextFormField(
-        controller: pickDate,
-        readOnly: true,
-        textAlign: TextAlign.center,
-        decoration:  const InputDecoration(
-          contentPadding: EdgeInsets.all(8.0),
-          suffixIcon: Icon(
-            Icons.date_range,
-            color: Colors.black,
-          ),
-          hintText: "Preferred delivery date",
-          hintMaxLines: 1,
-          hintStyle: TextStyle(fontSize: 15.0),
-          enabledBorder:
-              OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-          focusedBorder:
-              OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-        ),
-        onTap: () async {
-          final pickedDate = await selectDate(
-              context: context,
-              initialDate: selectedDate,
-              allowedDays: _allowedDays);
-          if (pickedDate != null && pickedDate != selectedDate) {
-            setState(() {
-              selectedDate = pickedDate;
-              pickDate.text =
-                  DateFormat('yyyy-MM-dd').format(selectedDate);
-              print("thohid ${pickDate.text}");
-            });
-          }
-        });
-  }
-
-Widget _buildPreperDeliveryDatePicker() {
-    return TextFormField(
-        controller: deliveryDate,
-        readOnly: true,
-        textAlign: TextAlign.center,
-        decoration:  const InputDecoration(
-          contentPadding: EdgeInsets.all(8.0),
-          suffixIcon: Icon(
-            Icons.date_range,
-            color: Colors.black,
-          ),
-          hintText: "Perferred delivery date",
-          hintMaxLines: 1,
-          hintStyle: TextStyle(fontSize: 15.0),
-          enabledBorder:
-              OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-          focusedBorder:
-              OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-        ),
-        onTap: () async {
-          final pickedDate = await selectDate(
-              context: context,
-              initialDate: selectedDate,
-              allowedDays: _allowedDays);
-          if (pickedDate != null && pickedDate != selectedDate) {
-            setState(() {
-            
-             deliveryDate.text =
-                  DateFormat('yyyy-MM-dd').format(pickedDate);
-              print("thohid ${deliveryDate.text}");
-            });
-          }
-        });
-  }
-
-  bool _allowedDays(DateTime day) {
-    if ((day.isBefore(DateTime.now()))) {
-      return true;
-    }
-    return false;
-  }
-
-  selectDate(
-      {required BuildContext context,
-       DateTime? initialDate,
-      required allowedDays}) async {
-    final selected = await showDatePicker(
+ bool pickStatus= false; 
+  bool deliveryStatus= false; 
+ DateTime pickDate = DateTime.now();
+ DateTime deliveryDate = DateTime.now();
+  String? selectedDateForBackendDeveloper;
+pickUpDatePicker(context) async {
+    DateTime? userSelectedDate = await showDatePicker(
       context: context,
-      initialDate: initialDate!,
-      firstDate: DateTime(2010),
-      lastDate: DateTime(2029),
-      selectableDayPredicate: allowedDays,
-      builder: (context, child) {
-        return Theme(
-          data: Theme.of(context).copyWith(
-            textButtonTheme: TextButtonThemeData(
-              style: TextButton.styleFrom(),
-            ),
-          ),
-          child: child!,
-        );
-      },
+      initialDate: pickDate,
+      // firstDate: DateTime(2022),
+      firstDate: DateTime.now(),
+      // firstDate: DateTime(2022, 9, 15),
+
+      // lastDate: DateTime(3000),
+
+      lastDate: DateTime(2030, 01, 01),
     );
-    return selected;
+
+    if (userSelectedDate == null) {
+      return;
+    } else {
+      setState(() {
+        pickStatus = true; 
+        pickDate = userSelectedDate;
+      
+        selectedDateForBackendDeveloper =
+            "${pickDate.year}-${pickDate.month}-${pickDate.day}";
+        print("Date $selectedDateForBackendDeveloper");
+      });
+    }
+  }
+  deliveryDatePicker(context) async {
+    DateTime? userSelectedDate = await showDatePicker(
+      context: context,
+      initialDate: deliveryDate,
+      // firstDate: DateTime(2022),
+      firstDate: DateTime.now(),
+      // firstDate: DateTime(2022, 9, 15),
+
+      // lastDate: DateTime(3000),
+
+      lastDate: DateTime(2030, 01, 01),
+    );
+
+    if (userSelectedDate == null) {
+      return;
+    } else {
+      setState(() {
+        deliveryStatus = true;
+        deliveryDate = userSelectedDate;
+      
+        selectedDateForBackendDeveloper =
+            "${deliveryDate.year}-${deliveryDate.month}-${deliveryDate.day}";
+        print("Date $selectedDateForBackendDeveloper");
+      });
+    }
   }
 
  var pickupTime;

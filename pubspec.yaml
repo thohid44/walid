@@ -42,7 +42,8 @@ dependencies:
   http: 
   intl: ^0.18.0
   get_storage: ^2.1.1
-  syncfusion_flutter_datepicker: ^21.2.6
+  calendar_date_picker2: ^0.5.2
+ 
 dev_dependencies:
   flutter_test:
     sdk: flutter
