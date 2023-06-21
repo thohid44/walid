@@ -8,6 +8,7 @@ import 'package:triptask/Widget/customTextForm.dart';
 import 'package:triptask/Widget/trip_ship_task_bar.dart';
 import 'package:triptask/pages/Ship/views/shipPage.dart';
 import 'package:triptask/pages/Task/views/task_home_page.dart';
+import 'package:triptask/pages/TripPages/controller/TripController.dart';
 import 'package:triptask/pages/TripPages/views/get_A_Ride.dart';
 import 'package:triptask/pages/TripPages/views/give_A_Ride.dart';
 
@@ -185,7 +186,7 @@ class _TripPageState extends State<TripPage> {
                     children: [
                       Icon(Icons.list_alt),
                       CustomText(
-                          "Task Posts", Colors.black, FontWeight.w700, 13.sp)
+                          "Trip Posts", Colors.black, FontWeight.w700, 13.sp)
                     ],
                   ),
                 ),
@@ -227,12 +228,19 @@ class CustomForm extends StatelessWidget {
 class TripTaskPost extends StatelessWidget {
   const TripTaskPost({super.key});
 
+ 
   @override
   Widget build(BuildContext context) {
+    var controller = Get.put(TripController()); 
+  controller.getMyTrips(); 
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: ListView.builder(
-          itemCount: 5,
+      child: GetBuilder<TripController>(builder:(context){
+        return FutureBuilder(
+          future: controller.getMyTrips(),
+          builder:(context,AsyncSnapshot snapshot){
+          return  ListView.builder(
+          itemCount: snapshot.data.data.postedTrips.length, 
           itemBuilder: (context, index) {
             return Card(
               child: Container(
@@ -317,7 +325,9 @@ class TripTaskPost extends StatelessWidget {
                 ),
               ),
             );
-          }),
+          });
+        });
+      })
     );
   }
 }
