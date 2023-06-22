@@ -2,9 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:triptask/Utils/colors.dart';
 import 'package:triptask/Widget/customButtonOne.dart';
+import 'package:triptask/pages/Ship/controller/send_package_controller.dart';
 import 'package:triptask/pages/TripPages/views/trip_page.dart';
 
 class SendAPackage extends StatefulWidget {
@@ -15,25 +17,7 @@ class SendAPackage extends StatefulWidget {
 class _SendAPackageState extends State<SendAPackage> {
   final TextEditingController search = TextEditingController();
 
-  List<DropdownMenuItem<String>> get vehicleItem {
-    List<DropdownMenuItem<String>> destination = [
-      const DropdownMenuItem(
-          child: Text("Perferred delivery date"), value: "Perferred delivery date"),
-     
-    ];
-    return destination;
-  }
 
-  String vehicle = "Perferred delivery date";
-
-  List<DropdownMenuItem<String>> get deliveryTimes {
-    List<DropdownMenuItem<String>> destination = [
-      const DropdownMenuItem(
-          child: Text("Perferred delivery time"), value: "Perferred delivery time"),
-      
-    ];
-    return destination;
-  }
 
   String deliveryTime = "Perferred delivery time";
 
@@ -85,12 +69,16 @@ class _SendAPackageState extends State<SendAPackage> {
 
 final TextEditingController pickup = TextEditingController(); 
 
-final TextEditingController dateData= TextEditingController(); 
+final TextEditingController pickDate= TextEditingController(); 
 
-final TextEditingController timeData = TextEditingController(); 
+final TextEditingController deliveryDate = TextEditingController();
+
 
 final TextEditingController dropOff= TextEditingController(); 
-
+final TextEditingController sendItem =TextEditingController(); 
+final TextEditingController approxValue= TextEditingController(); 
+final TextEditingController note= TextEditingController(); 
+var controller = Get.put(SendPackageController() ); 
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -121,7 +109,7 @@ final TextEditingController dropOff= TextEditingController();
                     onTap: _showTimePicker,
                     child: Container(
                       alignment: Alignment.center,
-                      width: 160.w, height: 45.h, child:_timeOfDay !=null?Text(_timeOfDay!.format(context).toString()): Text("Select Time"),)),
+                      width: 160.w, height: 45.h, child:pickupTime !=null?Text(pickupTime!.format(context).toString()): Text("Select Time"),)),
             ],
           ),
         ),
@@ -160,16 +148,7 @@ final TextEditingController dropOff= TextEditingController();
                 decoration: BoxDecoration(
                     border: Border.all(width: 1.w, color: Colors.grey),
                     borderRadius: BorderRadius.circular(10.r)),
-                child: DropdownButton(
-                  underline: SizedBox(),
-                  style: TextStyle(
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
-                  value: vehicle,
-                  onChanged: (value) {},
-                  items: vehicleItem,
-                ),
+                child:  _buildPreperDeliveryDatePicker()
               ),
               SizedBox(
                 width: 5.w,
@@ -234,7 +213,10 @@ final TextEditingController dropOff= TextEditingController();
                         fontWeight: FontWeight.bold,
                         color: Colors.black),
                     value: willing,
-                    onChanged: (value) {},
+                    onChanged: (value) {
+                      willing = value!; 
+                      print(willing);
+                    },
                     items: willingPay,
                   ),
                 ),
@@ -246,7 +228,7 @@ final TextEditingController dropOff= TextEditingController();
             child: CustomForm(
               hinttext: "What are you sending? ",
               radius: 5.r,
-              textController: search,
+              textController: sendItem,
             )),
             ],
           ),
@@ -273,7 +255,9 @@ final TextEditingController dropOff= TextEditingController();
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
                   value: typeGood,
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                    typeGood = value!;
+                  },
                   items: typeOfGoods,
                 ),
               ),
@@ -316,7 +300,10 @@ final TextEditingController dropOff= TextEditingController();
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
                   value: packageType,
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                    packageType=value!; 
+                    print(packageType); 
+                  },
                   items: packageTypes,
                 ),
               ),
@@ -351,7 +338,10 @@ final TextEditingController dropOff= TextEditingController();
                         fontWeight: FontWeight.bold,
                         color: Colors.black),
                     value: weightOfPackage,
-                    onChanged: (value) {},
+                    onChanged: (value) {
+                      weightOfPackage = value!; 
+                      print(weightOfPackage);
+                    },
                     items: weightOfPackages,
                   ),
                 ),
@@ -363,6 +353,7 @@ final TextEditingController dropOff= TextEditingController();
         Container(
           margin: EdgeInsets.symmetric(horizontal: 20.w),
           child: TextFormField(
+            controller: note,
             decoration: InputDecoration(
               hintText: "Note",
               border: OutlineInputBorder(),
@@ -375,7 +366,13 @@ final TextEditingController dropOff= TextEditingController();
         ),
         CustomButtonOne(
           title: "Sumbit",
-          onTab: () {},
+          onTab: () {
+
+controller.sendPackage(pickup.text.toString() , pickDate.toString(),'5' ,deliveryDate.text.toString(), '10', dropOff.text.toString(), willing.toString(), sendItem.text.toString(),
+  typeGood.toString(), approxValue.text.toString(), packageType, weightOfPackage.toString(), note.text.toString());
+
+
+          },
           height: 40.h,
           width: 150.w,
           btnColor: navyBlueColor,
@@ -396,7 +393,7 @@ final TextEditingController dropOff= TextEditingController();
 
   Widget _buildDatePicker() {
     return TextFormField(
-        controller: dateData,
+        controller: pickDate,
         readOnly: true,
         textAlign: TextAlign.center,
         decoration:  InputDecoration(
@@ -421,14 +418,47 @@ final TextEditingController dropOff= TextEditingController();
           if (pickedDate != null && pickedDate != selectedDate) {
             setState(() {
               selectedDate = pickedDate;
-              dateData.text =
+              pickDate.text =
                   DateFormat('yyyy-MM-dd').format(selectedDate);
-              print("thohid ${dateData.text}");
+              print("thohid ${pickDate.text}");
             });
           }
         });
   }
-
+Widget _buildPreperDeliveryDatePicker() {
+    return TextFormField(
+        controller: deliveryDate,
+        readOnly: true,
+        textAlign: TextAlign.center,
+        decoration:  InputDecoration(
+          contentPadding: EdgeInsets.all(8.0),
+          suffixIcon:const Icon(
+            Icons.date_range,
+            color: Colors.black,
+          ),
+          hintText: "Perferred delivery date",
+          hintMaxLines: 1,
+          hintStyle: TextStyle(fontSize: 15.0),
+          enabledBorder:
+              OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+          focusedBorder:
+              OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
+        ),
+        onTap: () async {
+          final pickedDate = await selectDate(
+              context: context,
+              initialDate: selectedDate,
+              allowedDays: _allowedDays);
+          if (pickedDate != null && pickedDate != selectedDate) {
+            setState(() {
+            
+             deliveryDate.text =
+                  DateFormat('yyyy-MM-dd').format(pickedDate);
+              print("thohid ${deliveryDate.text}");
+            });
+          }
+        });
+  }
   bool _allowedDays(DateTime day) {
     if ((day.isBefore(DateTime.now()))) {
       return true;
@@ -444,7 +474,7 @@ final TextEditingController dropOff= TextEditingController();
       context: context,
       initialDate: initialDate,
       firstDate: DateTime(2010),
-      lastDate: DateTime(2025),
+      lastDate: DateTime(2029),
       selectableDayPredicate: allowedDays,
       builder: (context, child) {
         return Theme(
@@ -460,11 +490,13 @@ final TextEditingController dropOff= TextEditingController();
     return selected;
   }
 
-  TimeOfDay? _timeOfDay;
+ var pickupTime;
   void _showTimePicker() async{
     showTimePicker(context: context, initialTime: TimeOfDay.now()).then((value) {
       setState(() {
-        _timeOfDay = value!;
+        print(value);
+        pickupTime = value;
+        print(pickupTime);
       });
     });
   }

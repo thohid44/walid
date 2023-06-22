@@ -4,17 +4,16 @@ import 'package:triptask/Api_services/ApiService.dart';
 class SendPackageController extends GetxController{
 
 
-  sendPackage() async{
-
+sendPackage(String pickup, String pickDate, String pickTime, String dropOff,   deliveryTime,  deliveryDate, String currency, String sendItem, String goodType, String approxiValue, String packageType, String weight, String note,) async{
    var mapData = {
     "post_type": "enim",
-    "pickuppoint": "minima",
-    "date": "quaerat",
-    "time": "modi",
-    "delivery_date": "soluta",
-    "delivery_time": "ut",
-    "dropoffpoint": "eius",
-    "distance": "aspernatur",
+    "pickuppoint": pickup,
+    "date": pickDate,
+    "time": '5:00',
+    "delivery_date": '10:00',
+    "delivery_time": deliveryDate,
+    "dropoffpoint": dropOff,
+    "distance": approxiValue,
     "duration": "quidem",
     "amount": "enim",
     "p_lat": "ut",
@@ -22,23 +21,23 @@ class SendPackageController extends GetxController{
     "d_lat": "alias",
     "d_lng": "fugit",
     "document": "ut",
-    "packagetype": "sint",
-    "weight": "qui",
-    "goodtype": "sit",
+    "packagetype": packageType,
+    "weight": weight,
+    "goodtype": goodType,
     "length": "illo",
     "width": "officiis",
     "height": "inventore",
     "document_worth": "atque",
     "ownvehicle": "molestiae",
     "country": "omnis",
-    "currency": "et",
-    "notes": "quos"
+    "currency": currency,
+    "notes": note
 }
 ; 
     var response = await ApiService().postData(mapData, "ship"); 
-    if(response.statusCode==201){
+    if(response.StatusCode==201){
 
-
+    print(response.body); 
     }
   }
 }

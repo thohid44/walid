@@ -6,6 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:triptask/Api_services/ApiService.dart';
 import 'package:http/http.dart' as http;
 import 'package:triptask/Utils/localstorekey.dart';
+import 'package:triptask/pages/TripPages/model/my_trip_posts_model.dart';
 class TripController extends GetxController{
 
 final _box = GetStorage();
@@ -51,5 +52,32 @@ print(jsonData);
     } catch (e) {
       print("Error $e");
     }
+  }
+
+
+
+ getMyTrips()async{
+var token = _box.read(LocalStoreKey.token); 
+
+    try {
+      isLoading(true);
+      var response = await http.get(Uri.parse("http://api.tripshiptask.com/api/mytrip"),
+      headers: {
+      
+        'Accept':'application/json',
+        'Authorization': 'Bearer '+token,
+      },
+     );
+      if (response.statusCode == 200) {
+      
+        var jsonData = jsonDecode(response.body);
+        print(jsonData); 
+        update(); 
+     return MyTripPostsModel.fromJson(jsonData); 
+      }
+    } catch (e) {
+      print("Error $e");
+    }
+    update(); 
   }
 }
