@@ -6,7 +6,6 @@ import 'package:triptask/Utils/colors.dart';
 import 'package:triptask/Widget/customButtonOne.dart';
 import 'package:triptask/Widget/customTextForm.dart';
 import 'package:triptask/Widget/space_widgeter.dart';
-import 'package:triptask/pages/Home/view/home_screen.dart';
 import 'package:triptask/pages/Login/controller/LoginController.dart';
 import 'package:triptask/pages/Login/view/registration_screen.dart';
 
