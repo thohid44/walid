@@ -223,26 +223,34 @@ class CustomForm extends StatelessWidget {
       ),
     );
   }
+
 }
 
 class TripTaskPost extends StatelessWidget {
-  const TripTaskPost({super.key});
-
+  
+  var controller = Get.put(TripController()); 
  
   @override
   Widget build(BuildContext context) {
-    var controller = Get.put(TripController()); 
+  
   controller.getMyTrips(); 
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: GetBuilder<TripController>(builder:(context){
-        return FutureBuilder(
+      child:  FutureBuilder(
           future: controller.getMyTrips(),
           builder:(context,AsyncSnapshot snapshot){
-          return  ListView.builder(
-          itemCount: snapshot.data.data.postedTrips.length, 
+
+            // if(snapshot.data ==null){
+            //     return Center(child: CircularProgressIndicator(),); 
+            // }
+
+ 
+               return  ListView.builder(
+          itemCount: snapshot.data.data.completedTrips.length, 
           itemBuilder: (context, index) {
+              var tripData = snapshot.data.data.completedTrips[index];
             return Card(
+           
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
                 child: Row(
@@ -254,20 +262,20 @@ class TripTaskPost extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                            child: CustomText("Start Point: Rajshahi",
+                            child: CustomText("Start Point:${snapshot.data.data.completedTrips[index].startPoint}",
                                 Colors.black, FontWeight.normal, 13.sp),
                           ),
                           Container(
-                            child: CustomText("Destination: Bogura, Bangladesh",
+                            child: CustomText("Destination: ${ tripData.destination}",
                                 Colors.black, FontWeight.normal, 13.sp),
                           ),
                           Container(
-                            child: CustomText("Offers: 10-20", Colors.black,
+                            child: CustomText("Offers: ${ tripData.postType}", Colors.black,
                                 FontWeight.normal, 13.sp),
                           ),
                           Container(
                             child: CustomText(
-                                "Posted by: Admin Gov ID Verifide",
+                                "Posted by:  ${ tripData.via}",
                                 Colors.black,
                                 FontWeight.normal,
                                 13.sp),
@@ -280,7 +288,7 @@ class TripTaskPost extends StatelessWidget {
                                 13.sp),
                           ),
                           Container(
-                            child: CustomText("Vehicle: Car", Colors.black,
+                            child: CustomText("Vehicle:  ${ tripData.vehicleType}", Colors.black,
                                 FontWeight.normal, 13.sp),
                           ),
                         ],
@@ -294,7 +302,7 @@ class TripTaskPost extends StatelessWidget {
                         children: [
                           Container(
                             padding: EdgeInsets.symmetric(vertical: 10.h),
-                            child: CustomText("Amount \$ 2400", Colors.black,
+                            child: CustomText("Amount \$${ tripData.amount}", Colors.black,
                                 FontWeight.normal, 13.sp),
                           ),
                           Container(
@@ -315,7 +323,7 @@ class TripTaskPost extends StatelessWidget {
                           ),
                           Container(
                             padding: EdgeInsets.symmetric(vertical: 10.h),
-                            child: CustomText("Passenger:2", Colors.black,
+                            child: CustomText("Passenger:2  ${ tripData.vehicleSeat}", Colors.black,
                                 FontWeight.normal, 13.sp),
                           ),
                         ],
@@ -326,8 +334,11 @@ class TripTaskPost extends StatelessWidget {
               ),
             );
           });
-        });
-      })
+             
+            
+       
+        })
+     
     );
   }
 }
