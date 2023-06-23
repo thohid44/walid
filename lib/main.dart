@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:triptask/offer_a_task.dart';
 import 'package:triptask/profile/view/main_profile_page.dart';
+import 'package:triptask/profile/view/user_deshboard.dart';
 import 'pages/Login/view/login_screen.dart';
 import 'pages/TripPages/views/trip_page.dart';
 import 'rating/view/rating_page_30.dart';
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
           home: child,
         );
       },
-      child: MainProfilePage(),
+      child: UserDeshBoard(),
       
     );
   }
