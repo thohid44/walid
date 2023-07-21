@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:triptask/Utils/colors.dart';
 import 'package:triptask/Widget/customButtonOne.dart';
+import 'package:triptask/Widget/custom_text_field.dart';
 import 'package:triptask/pages/TripPages/views/trip_page.dart';
 
 class GiveARide extends StatelessWidget {
@@ -46,14 +47,17 @@ class GiveARide extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 20.w),
           child: Row(
             children: [
-              Container(
-                  width: 150.w,
-                  height: 35.h,
-                  child: CustomForm(
-                    hinttext: "Start Point",
-                    radius: 5.r,
-                    textController: search,
-                  )),
+             Container( 
+              width: 135.w,
+             
+               child: CustomTextField(
+                txt: "Start Point",
+                label: "Start Point",
+                hint: "Start Point",
+                onChange: (){
+             
+               }),
+             ), 
               SizedBox(
                 width: 10.w,
               ),

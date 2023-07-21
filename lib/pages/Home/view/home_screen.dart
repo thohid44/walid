@@ -9,6 +9,8 @@ import 'package:triptask/Utils/colors.dart';
 import 'package:triptask/Widget/customText.dart';
 import 'package:triptask/pages/Ship/views/shipPage.dart';
 import 'package:triptask/pages/TripPages/views/trip_page.dart';
+import 'package:triptask/profile/view/main_profile_page.dart';
+import 'package:triptask/profile/view/user_deshboard.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -40,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         )),
                     child: InkWell(
                       onTap: () {
-                        Get.to(EmailVerification());
+                    
                       },
                       child: Row(
                         children: [
@@ -53,20 +55,25 @@ class _HomeScreenState extends State<HomeScreen> {
                                 size: 60.h,
                                 color: white,
                               )),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: 110.w,
-                                child: CustomText("Zakir Hossain", white,
-                                    FontWeight.w500, 13.sp),
-                              ),
-                              Container(
-                                width: 110.w,
-                                child: CustomText("Acct: 123456", white,
-                                    FontWeight.w500, 13.sp),
-                              )
-                            ],
+                          GestureDetector(
+                            onTap: (){
+                              Get.to(UserDeshBoard()); 
+                            },
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: 110.w,
+                                  child: CustomText("Zakir Hossain", white,
+                                      FontWeight.w500, 13.sp),
+                                ),
+                                Container(
+                                  width: 110.w,
+                                  child: CustomText("Acct: 123456", white,
+                                      FontWeight.w500, 13.sp),
+                                )
+                              ],
+                            ),
                           ),
                           Container(
                               width: 160.w,

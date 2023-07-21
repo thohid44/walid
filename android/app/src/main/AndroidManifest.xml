@@ -1,5 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
     package="com.example.triptask">
+       <uses-permission android:name="android.permission.INTERNET" />
+      <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+      <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+       <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" tools:node="remove"/>
+
    <application
         android:label="triptask"
         android:name="${applicationName}"
@@ -30,5 +36,7 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+          <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyDLMJOClhhQjkfepu0R8iOCIt7bUpUF0nU"/>
     </application>
 </manifest>

@@ -4,48 +4,46 @@
 
 import 'dart:convert';
 
-MyTripsOfferModel myTripsOfferModelFromJson(String str) =>
-    MyTripsOfferModel.fromJson(json.decode(str));
+MyTripsOfferModel myTripsOfferModelFromJson(String str) => MyTripsOfferModel.fromJson(json.decode(str));
+
 
 class MyTripsOfferModel {
-  List<MyTripOfferModel>? data;
+    List<Datum> data;
 
-  MyTripsOfferModel({
-    this.data,
-  });
+    MyTripsOfferModel({
+        required this.data,
+    });
 
-  factory MyTripsOfferModel.fromJson(Map<String, dynamic> json) =>
-      MyTripsOfferModel(
-        data: List<MyTripOfferModel>.from(
-            json["data"].map((x) => MyTripOfferModel.fromJson(x))),
-      );
+    factory MyTripsOfferModel.fromJson(Map<String, dynamic> json) => MyTripsOfferModel(
+        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+    );
+
 }
 
-class MyTripOfferModel {
-  String? tripId;
-  DateTime? tripDate;
-  String? tripStartPoint;
-  String? tripDestination;
-  int? userId;
-  int? amount;
-  dynamic? co;
-  int? accepted;
-  String? path;
+class Datum {
+    String tripId;
+    DateTime tripDate;
+    String tripStartPoint;
+    String tripDestination;
+    int userId;
+    int amount;
+    dynamic co;
+    int accepted;
+    String path;
 
-  MyTripOfferModel({
-    this.tripId,
-    this.tripDate,
-    this.tripStartPoint,
-    this.tripDestination,
-    this.userId,
-    this.amount,
-    this.co,
-    this.accepted,
-    this.path,
-  });
+    Datum({
+        required this.tripId,
+        required this.tripDate,
+        required this.tripStartPoint,
+        required this.tripDestination,
+        required this.userId,
+        required this.amount,
+        this.co,
+        required this.accepted,
+        required this.path,
+    });
 
-  factory MyTripOfferModel.fromJson(Map<String, dynamic> json) =>
-      MyTripOfferModel(
+    factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         tripId: json["trip_id"],
         tripDate: DateTime.parse(json["trip_date"]),
         tripStartPoint: json["trip_start_point"],
@@ -55,5 +53,7 @@ class MyTripOfferModel {
         co: json["co"],
         accepted: json["accepted"],
         path: json["path"],
-      );
+    );
+
+ 
 }

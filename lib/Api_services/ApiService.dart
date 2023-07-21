@@ -7,7 +7,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:triptask/Utils/localstorekey.dart';
 class ApiService {
-static String baseUrl = 'http://api.tripshiptask.com/api'; 
+static String baseUrl = 'http://api.tripshiptask.com/api/'; 
 static var client = http.Client();  
 var token=''; 
 

@@ -3,10 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'package:triptask/pages/Ship/views/shipPage.dart';
+import 'package:triptask/pages/TripPages/views/my_trips_offer_page.dart';
 import 'package:triptask/profile/view/main_profile_page.dart';
 
 class UserDeshBoard extends StatefulWidget {
-  const UserDeshBoard(); 
+  const UserDeshBoard();
   @override
   State<UserDeshBoard> createState() => _UserDeshBoardState();
 }
@@ -73,17 +74,22 @@ class _UserDeshBoardState extends State<UserDeshBoard> {
                             ),
                           ),
                         ),
-                        Container(
-                          margin: EdgeInsets.only(left: 40.w),
-                          //   height: 40.h,
-                          padding: EdgeInsets.only(top: 5.h, bottom: 5.h),
+                        GestureDetector(
+                          onTap: () {
+                            Get.to(MyTripsOfferPage()); 
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(left: 40.w),
+                            //   height: 40.h,
+                            padding: EdgeInsets.only(top: 5.h, bottom: 5.h),
 
-                          child: Text(
-                            "My Trip offers",
-                            style: TextStyle(
-                                fontSize: 15.sp,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black),
+                            child: Text(
+                              "My Trip offers",
+                              style: TextStyle(
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black),
+                            ),
                           ),
                         ),
                         Container(
